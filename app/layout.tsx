@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description:
     "Faith-Driven Aspiring Entrepreneur | Computer Science @ Ashesi University | Student Member, ICAG | Software Developer specializing in AI/ML, Fintech, and Full-Stack Development",
   keywords: [
-    "Caleb Arthur",
+    "Caleb O. Arthur",
     "Caleb Okwesie Arthur",
     "Computer Science",
     "Ashesi University",

@@ -15,7 +15,7 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <img
-              src="/placeholder.svg?height=400&width=400"
+              src="/profile_pic.jpg"
               alt="Caleb at Ashesi University"
               className="w-full rounded-lg shadow-lg"
             />

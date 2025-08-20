@@ -5,12 +5,12 @@ import { Code, Database, Users } from "lucide-react"
 
 export function Skills() {
   const technicalSkills = [
-    { name: "Python", level: 90, category: "Programming" },
-    { name: "Java", level: 85, category: "Programming" },
-    { name: "JavaScript", level: 75, category: "Programming" },
+    { name: "Python", level: 70, category: "Programming" },
+    { name: "Java", level: 75, category: "Programming" },
+    { name: "JavaScript", level: 60, category: "Programming" },
     { name: "SQL", level: 80, category: "Database" },
-    { name: "React", level: 70, category: "Frontend" },
-    { name: "TensorFlow", level: 75, category: "AI/ML" },
+    { name: "React", level: 60, category: "Frontend" },
+    { name: "TensorFlow", level: 55, category: "AI/ML" },
     { name: "Git", level: 85, category: "Tools" },
     { name: "MySQL", level: 80, category: "Database" },
   ]
