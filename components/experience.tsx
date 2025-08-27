@@ -93,9 +93,15 @@ export function Experience() {
 
         {/* Resume Download */}
         <div className="text-center mb-12">
-          <Button size="lg" className="group">
-            <Download className="mr-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
-            Download Resume
+          <Button size="lg" asChild className="group">
+            <a 
+              href="/caleb-arthur-resume.pdf" 
+              download="Caleb_Okwesie_Arthur_Resume.pdf"
+              className="flex items-center gap-2"
+            >
+              <Download className="mr-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+              Download Resume
+            </a>
           </Button>
         </div>
 

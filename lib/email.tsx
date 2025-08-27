@@ -13,7 +13,7 @@ export interface ContactFormData {
 export async function sendEmail(to: string, subject: string, html: string, replyTo?: string) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Caleb Arthur <contact@caleb-arthur-portfolio.vercel.app>',
+      from: 'Caleb Arthur <onboarding@resend.dev>',
       to: [to],
       subject: subject,
       html: html,

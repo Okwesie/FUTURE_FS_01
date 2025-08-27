@@ -71,10 +71,20 @@ export function Hero() {
           </div>
 
           {/* Call to action */}
-          <div className="flex justify-center">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button variant="ghost" onClick={scrollToProjects} className="text-muted-foreground hover:text-foreground">
               View My Work
               <ArrowDown className="ml-2 h-4 w-4" />
+            </Button>
+            <Button variant="outline" asChild>
+              <a 
+                href="/caleb-arthur-resume.pdf" 
+                download="Caleb_Okwesie_Arthur_Resume.pdf"
+                className="flex items-center gap-2"
+              >
+                <Download className="h-4 w-4" />
+                Download Resume
+              </a>
             </Button>
           </div>
         </div>

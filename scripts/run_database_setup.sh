@@ -1,13 +1,29 @@
 #!/bin/bash
-# Script to run database setup
-echo "Setting up database tables..."
 
-# Note: In a real deployment, you would run these SQL scripts through your Supabase dashboard
-# or using the Supabase CLI. For development, you can copy the SQL from 001_create_contacts_table.sql
-# and run it in your Supabase SQL editor.
+echo "Setting up database for Caleb Arthur Portfolio..."
 
-echo "Database setup complete!"
-echo "Don't forget to:"
-echo "1. Run the SQL script in your Supabase dashboard"
-echo "2. Add your RESEND_API_KEY to environment variables"
-echo "3. Update the 'your-email@example.com' in the contact route"
+# Check if psql is available
+if ! command -v psql &> /dev/null; then
+    echo "Error: psql is not installed. Please install PostgreSQL client tools."
+    exit 1
+fi
+
+# Check if environment variables are set
+if [ -z "$DATABASE_URL" ]; then
+    echo "Error: DATABASE_URL environment variable is not set."
+    echo "Please set it to your Supabase database connection string."
+    exit 1
+fi
+
+echo "Running database setup scripts..."
+
+# Run the contacts table creation script
+psql "$DATABASE_URL" -f scripts/001_create_contacts_table.sql
+
+if [ $? -eq 0 ]; then
+    echo "✅ Database setup completed successfully!"
+    echo "The contacts table has been created and configured."
+else
+    echo "❌ Database setup failed. Please check your connection and try again."
+    exit 1
+fi

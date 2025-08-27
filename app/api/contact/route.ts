@@ -1,4 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { saveContactSubmission } from "@/lib/supabase/client"
+import { sendEmail, generateContactNotificationEmail, generateAutoReplyEmail, type ContactFormData } from "@/lib/email"
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,12 +18,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 
-    // Here you would typically:
-    // 1. Save to database
-    // 2. Send email notification
-    // 3. Integrate with email service (SendGrid, Resend, etc.)
+    const contactData: ContactFormData = {
+      firstName,
+      lastName,
+      email,
+      subject,
+      message,
+    }
 
-    // For now, we'll just log the message and return success
     console.log("Contact form submission:", {
       name: `${firstName} ${lastName}`,
       email,
@@ -30,9 +34,45 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
     })
 
-    // Simulate processing delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    // 1. Save to database
+    const dbResult = await saveContactSubmission({
+      name: `${firstName} ${lastName}`,
+      email,
+      subject,
+      message,
+    })
 
+    if (!dbResult.success) {
+      console.error("Database save failed:", dbResult.error)
+      // Continue with email sending even if database fails
+    }
+
+    // 2. Send notification email to admin
+    const notificationEmail = generateContactNotificationEmail(contactData)
+    const notificationResult = await sendEmail(
+      "arthurcaleb12@gmail.com",
+      `New Contact Form Submission from ${firstName} ${lastName}`,
+      notificationEmail,
+      email // Reply-to set to user's email
+    )
+
+    if (!notificationResult.success) {
+      console.error("Notification email failed:", notificationResult.error)
+    }
+
+    // 3. Send auto-reply email to user
+    const autoReplyEmail = generateAutoReplyEmail(contactData)
+    const autoReplyResult = await sendEmail(
+      email,
+      "Thank you for contacting me!",
+      autoReplyEmail
+    )
+
+    if (!autoReplyResult.success) {
+      console.error("Auto-reply email failed:", autoReplyResult.error)
+    }
+
+    // Return success even if some operations failed
     return NextResponse.json(
       {
         message: "Message sent successfully",
@@ -41,6 +81,8 @@ export async function POST(request: NextRequest) {
           email,
           subject,
         },
+        emailSent: notificationResult.success && autoReplyResult.success,
+        savedToDatabase: dbResult.success,
       },
       { status: 200 },
     )
