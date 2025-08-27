@@ -10,7 +10,7 @@ export interface ContactFormData {
   message: string
 }
 
-export async function sendEmail(to: string, subject: string, html: string, replyTo?: string) {
+export async function sendEmail(to: string, subject: string, html: string, replyTo?: string): Promise<{ success: boolean; error?: string; data?: any }> {
   try {
     const { data, error } = await resend.emails.send({
       from: 'Caleb Arthur <onboarding@resend.dev>',

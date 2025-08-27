@@ -14,7 +14,7 @@ export interface ContactSubmission {
   created_at?: string
 }
 
-export async function saveContactSubmission(data: ContactSubmission) {
+export async function saveContactSubmission(data: ContactSubmission): Promise<{ success: boolean; error?: string; data?: any }> {
   try {
     const { data: result, error } = await supabase
       .from('contacts')
@@ -34,7 +34,7 @@ export async function saveContactSubmission(data: ContactSubmission) {
   }
 }
 
-export async function getRecentContacts(limit: number = 5) {
+export async function getRecentContacts(limit: number = 5): Promise<{ success: boolean; error?: string; data?: any }> {
   try {
     const { data, error } = await supabase
       .from('contacts')

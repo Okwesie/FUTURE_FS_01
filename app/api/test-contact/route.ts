@@ -35,7 +35,7 @@ export async function GET() {
     })
 
     // Test email sending (only if Resend API key is available)
-    let emailTest = { success: false, error: "No Resend API key configured" }
+    let emailTest: { success: boolean; error?: string; data?: any } = { success: false, error: "No Resend API key configured" }
     if (process.env.RESEND_API_KEY) {
       const notificationEmail = generateContactNotificationEmail(testData)
       emailTest = await sendEmail(
