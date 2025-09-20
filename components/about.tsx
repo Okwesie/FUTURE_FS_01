@@ -6,7 +6,7 @@ export function About() {
   const achievements = [
     {
       title: "Dean's List",
-      description: "3.56/4.00 GPA at Ashesi University",
+      description: "@ Ashesi University",
       icon: <Award className="h-6 w-6 text-primary" />,
       color: "bg-primary/10 border-primary/20"
     },

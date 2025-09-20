@@ -33,7 +33,7 @@ export function Skills() {
       title: "BSc. Computer Science",
       institution: "Ashesi University",
       period: "2022-2026",
-      status: "Dean's List (3.56/4.00 GPA)",
+      status: "Dean's List",
       icon: <GraduationCap className="h-6 w-6 text-primary" />,
       color: "bg-primary/10 border-primary/20"
     },
